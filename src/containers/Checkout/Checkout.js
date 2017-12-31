@@ -12,7 +12,7 @@ class Checkout extends Component {
     totalPrice: 0
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const query = new URLSearchParams(this.props.location.search)
     let ingredients = {};
     let price
@@ -20,7 +20,7 @@ class Checkout extends Component {
     for (let param of query.entries()) {
       // format: ['ingredient_name', 'value']
       if (param[0] === 'price') {
-        price = +param[1]
+        price = param[1]
       }  else
       ingredients[param[0]] = +param[1]
     }
@@ -54,7 +54,7 @@ class Checkout extends Component {
         <Route
           path={`${this.props.match.path}/contact-info`}
           render={(props) => {
-            return <ContactData ingredients={this.state.ingredients} {...props} />
+            return <ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />
         }} />
       </div>
     )
